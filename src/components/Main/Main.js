@@ -3,6 +3,7 @@ import {Historia} from "../Historia/Historia";
 import {Opciones} from '../Opciones/Opciones';
 import {Historial} from '../Historial/Historial';
 import data from '../data.json'
+import Swal from 'sweetalert2';
 
 const historialOpciones = [];
 
@@ -22,11 +23,13 @@ class Main extends Component{
     
     cambiarTexto(eleccion){
 
-        if(this.state.contador < 4){
+        let contador = this.state.contador + 1;
+
+        if(contador < 5){
 
             eleccion = eleccion.toLowerCase();
 
-            let aux = (this.state.contador + 2) + eleccion;
+            let aux = (contador + 1) + eleccion;
             let opcion = data.find(element => element.id === aux);
         
             this.setState({
@@ -37,19 +40,30 @@ class Main extends Component{
             });
         }
 
+    
         else {
-            alert("HA TERMINADO LA HISTORIA.\nVUELVA PRONTO PARA SEGUIR CREANDO AVENTURAS :)");
+            this.componentWillUnmount();
         }
     }
 
     componentWillMount(){
-        alert("ELIGE TU PROPIA AVENTURA \nSelecciona tu opcion preferida para continuar la historia...");
+        Swal.fire({
+            title:"Bienvenid@ a elige tu propia aventura",
+            text: "Haz click para continuar",
+        });
     }
 
 	componentDidUpdate() {
         console.log("Seleccion recien elegida: " + this.state.opcionAnterior);
         historialOpciones.push(this.state.opcionAnterior);
 	}
+
+    componentWillUnmount(){
+        Swal.fire({
+            title:"Ha terminado la historia",
+            text: "Vuelva pronto para seguir creando aventuras",
+        });
+    }
 
     render(){
         return (

@@ -1,8 +1,17 @@
 * {
   margin: 0;
   box-sizing: border-box;
+}
+
+.alert{ 
+  color: red;
+  background-color: red;
+}
+
+.App {
   background-color: #380106;
 }
+
 .layout {
   height: 100vh;
   max-width: 500px;
